@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4" style="position: static; right: 500px; top: 10px; width: 10px; height: 10px;">
+            <img src="../../../static/img/entipisa.png">
+        </div>
+        <div class="col-md-4 " style="position: absolute; left: 700px; top: 100px">
+            <div class="page-header"><h2>Iniciar Sesion</h2></div>
+            {% if mensaje %}
+                <div class="alert alert-danger">
+                    {{ mensaje }}
+                </div>
+            {% endif %}
+
+            <form method="post" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label" for="username">Nombre de usuario</label>
+                    <input type="text" id="username" name="username" class="form-control" value="{{ username }}">
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Ingresar</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
