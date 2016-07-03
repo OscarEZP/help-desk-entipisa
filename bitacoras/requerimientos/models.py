@@ -18,3 +18,5 @@ class Requerimientos(models.Model):
     inicio = models.DateTimeField(verbose_name='Fecha de inicio')
     fin = models.DateTimeField(verbose_name='Fecha fin')
 
+    def __unicode__(self):
+        return self.falla.name

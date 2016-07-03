@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'departamento',
     'falla',
     'requerimientos',
+    'metricas',
+
 
 ]
 

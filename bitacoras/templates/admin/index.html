@@ -1,0 +1,77 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+
+
+<script src="../../static/js/Chart.js-master/dist/Chart.min.js"></script>
+<script src="../../static/bootstrap/css/bootstrap-theme.min.css"></script>
+<script src="../../static/jquery/jquery-2.2.4.min.js"></script>
+
+<div class="container" style=" padding: 15px 15px 15px 15px; width: 350px; height: 400px; border: none;">
+    <img style="position: absolute; right: 895px; width: 100px; height: 100px;" src="../../static/img/entipisa.png">
+    <canvas id="myChart" width="150" height="150" style="position: absolute; right: 220px; width: 350px; height: 350px; top: 80px;"></canvas>
+    <h2 style="position: absolute; right: 555px; top: 110px; color: #7B1919;">Bitacoras Solventadas / No Solventadas</h2>
+</div>
+
+<script type="text/javascript">
+
+
+    function drawChart(name, cant){
+
+    var ctx = $("#myChart").get(0).getContext("2d");
+    var myNewChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: name,
+        datasets: [{
+            label: 'ESTATUS DE PUBLICACIONES',
+            data: cant,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+
+        }]
+    },
+});
+}
+
+
+data = $.ajax({
+    url: "/admin/metrics/" + 1,
+    dataType:"json",
+    async: false,
+    success: function (data) {
+        var name = [];
+        var cant = [];
+
+        $.each(data, function(i, el){
+            name.push(data[i]['name']);
+            cant.push(data[i]['cant']);
+
+        });
+
+        drawChart(name, cant);
+
+    }
+ }).responseText
+
+
+</script>
+
+
+
+
+{% endblock %}

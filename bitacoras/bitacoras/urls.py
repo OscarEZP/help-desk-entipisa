@@ -17,10 +17,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+import requerimientos.views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('accounts.urls')),
+    url(r'', admin.site.urls),
+    #url(r'^accounts/', include('accounts.urls')),
+    url(r'admin/metrics/(?P<graph_type>[0-9]+)/$', requerimientos.views.metrics, name="metrics"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

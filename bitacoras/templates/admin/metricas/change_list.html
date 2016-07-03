@@ -1,0 +1,105 @@
+{% extends "admin/change_list.html" %}
+
+
+{% block content %}
+
+
+
+<script src="../../../static/js/Chart.js-master/dist/Chart.min.js"></script>
+<script src="../../../static/bootstrap/css/bootstrap-theme.min.css"></script>
+<script src="../../../static/jquery/jquery-2.2.4.min.js"></script>
+
+
+
+
+<div class="container" style="position: relative; right: 85px">
+    <div class="col-md-12">
+
+        <select id="inpt-metricas" name="metricas" style="position: absolute; left: 60px;">
+            <option value="0" >-Seleccione Metricas-</option>
+            <option value="1" >Requerimientos Solventados</option>
+            <option value="2" >Tipo de Daño</option>
+            <option value="3" >Departamento</option>
+
+        </select>
+
+
+    </div>
+
+    </div>
+
+
+
+<script type="text/javascript">
+
+
+
+    function drawChart(name, cant){
+
+    var ctx = $("#myChart").get(0).getContext("2d");
+    var myNewChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: name,
+        datasets: [{
+            label: 'ESTATUS DE PUBLICACIONES',
+            data: cant,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+
+        }]
+    },
+});
+}
+
+$("#inpt-metricas").on('change', function(){
+var id_metricas = parseInt($("#inpt-metricas").val());
+    metricas(id_metricas);
+
+});
+
+function metricas(id_metricas){
+console.log(id_metricas);
+data = $.ajax({
+    url: "/admin/metrics/" + id_metricas,
+    dataType:"json",
+    async: false,
+    success: function (data) {
+        var name = [];
+        var cant = [];
+
+        $.each(data, function(i, el){
+            name.push(data[i]['name']);
+            cant.push(data[i]['cant']);
+
+        });
+
+        drawChart(name, cant);
+
+    }
+ }).responseText
+
+}
+
+</script>
+
+
+<div class="container" style=" padding: 15px 15px 15px 15px; width: 450px; height: 500px; border: none;">
+    <canvas id="myChart" width="250" height="250"></canvas>
+</div>
+
+{% endblock %}
