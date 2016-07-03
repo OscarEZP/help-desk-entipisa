@@ -39,16 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'departamento',
+    'falla',
+    'requerimientos',
 
 ]
 
 SUIT_CONFIG = {
-    'ADMIN_NAME': 'Admin Entipisa',
+    'ADMIN_NAME': 'Bitacoras Entipisa',
     'MENU_ICONS': {
         'sites': 'icon-leaf',
         'auth': 'icon-lock',
     },
-    'MENU_EXCLUDE': ('auth.group', 'auth'),
+    'MENU_EXCLUDE': ('accounts',),
 }
 
 MIDDLEWARE_CLASSES = [
@@ -116,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-cl'
 
 TIME_ZONE = 'UTC'
 
